@@ -1,0 +1,342 @@
+<title>Arbin & Anndriya Wedding</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap">
+<style>
+/* Layout: a black "tap to open" gate whose two halves slide apart onto a white invitation page,
+   then alternating black and white bands for date, countdown, venue, location and a closing quote. */
+:root {
+  --ink: #0a0a0a;
+  --paper: #fafafa;
+  --mute-paper: #5a5a5a;
+  --mute-ink: #a9a9a9;
+  --line-paper: rgba(10, 10, 10, 0.22);
+  --line-ink: rgba(250, 250, 250, 0.28);
+  --f-script: "Allura", "Snell Roundhand", "Brush Script MT", cursive;
+  --f-serif: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --f-sans: "Jost", "Futura", "Century Gothic", "Helvetica Neue", Arial, sans-serif;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--ink); }
+html.gate, html.gate body { overflow: hidden; height: 100%; }
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p { margin: 0; }
+
+.label {
+  font-family: var(--f-sans);
+  font-weight: 400;
+  font-size: 0.74rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+/* ---------- Cover ---------- */
+.cover { position: fixed; inset: 0; z-index: 100; color: var(--paper); }
+.door {
+  position: absolute; top: 0; bottom: 0; width: 50.4%;
+  background: var(--ink);
+  transition: transform 1.3s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.door.l { left: 0; border-right: 1px solid var(--line-ink); }
+.door.r { right: 0; }
+.opening .door.l { transform: translateX(-101%); }
+.opening .door.r { transform: translateX(101%); }
+.cover-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 28px; text-align: center;
+  padding: env(safe-area-inset-top, 0px) var(--gutter-r) env(safe-area-inset-bottom, 0px) var(--gutter);
+  transition: opacity 0.5s ease;
+}
+.opening .cover-content { opacity: 0; pointer-events: none; }
+.ring { position: relative; width: 132px; height: 132px; display: grid; place-items: center; }
+.ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke: var(--paper); stroke-width: 0.8; stroke-dasharray: 340; stroke-dashoffset: 340; animation: draw 2.4s 0.2s cubic-bezier(0.5, 0.1, 0.2, 1) forwards; }
+.monogram { font-family: var(--f-script); font-size: 3.1rem; line-height: 1; padding-bottom: 6px; }
+.cover .invited { color: var(--mute-ink); }
+.cover .cover-names { font-family: var(--f-script); font-size: clamp(2.2rem, 9vw, 3.4rem); line-height: 1.1; }
+.tap {
+  position: relative; margin-top: 8px;
+  background: transparent; color: var(--paper);
+  border: 1px solid var(--line-ink);
+  font: 400 0.76rem/1 var(--f-sans); letter-spacing: 0.4em; text-transform: uppercase;
+  padding: 18px 30px 18px 34px; cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.tap::after {
+  content: ""; position: absolute; inset: -1px; border: 1px solid var(--paper);
+  animation: pulse 2.6s ease-out infinite;
+}
+.tap:hover { background: var(--paper); color: var(--ink); }
+.tap:focus-visible, .btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
+.band.paper .btn:focus-visible { outline-color: var(--ink); }
+
+/* ---------- Bands ---------- */
+.band { padding-inline: var(--gutter) var(--gutter-r); }
+.band.ink { background: var(--ink); color: var(--paper); }
+.band.paper { background: var(--paper); color: var(--ink); }
+.inner { margin-inline: auto; width: 100%; }
+
+/* Hero invitation */
+.hero { position: relative; padding-block: clamp(64px, 12vw, 120px) clamp(48px, 8vw, 80px); outline: none; }
+.hero::before {
+  content: ""; position: absolute; inset: 14px; border: 1px solid var(--line-paper); pointer-events: none;
+}
+.hero .inner { max-width: 640px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.hero .eyebrow { color: var(--mute-paper); }
+.name { font-family: var(--f-script); font-weight: 400; line-height: 1.12; font-size: clamp(2.7rem, 11.5vw, 5.6rem); text-wrap: balance; }
+.amp { font-family: var(--f-serif); font-style: italic; font-weight: 300; font-size: 1.7rem; line-height: 1; margin-block: -6px; }
+.rule { width: 56px; height: 1px; background: var(--ink); margin-block: 10px; }
+.hosts { font-weight: 400; font-size: clamp(0.82rem, 3.2vw, 0.98rem); letter-spacing: 0.22em; text-transform: uppercase; line-height: 1.9; }
+.hosts span { display: block; color: var(--mute-paper); font-weight: 300; }
+.invite-line { font-family: var(--f-serif); font-size: clamp(1.25rem, 4.6vw, 1.6rem); font-weight: 300; line-height: 1.5; max-width: 30ch; text-wrap: balance; }
+.cue { margin-top: 18px; display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--mute-paper); }
+.cue i { display: block; width: 1px; height: 46px; background: linear-gradient(var(--ink), transparent); transform-origin: top; animation: drip 2.2s ease-in-out infinite; }
+
+/* Date */
+.date-band { padding-block: clamp(72px, 12vw, 128px) clamp(48px, 7vw, 72px); }
+.date-band .inner { max-width: 760px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.date-band .label { color: var(--mute-ink); }
+.bigdate { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2em 0.5em; font-weight: 200; font-size: clamp(2.6rem, 12vw, 6.4rem); letter-spacing: 0.08em; line-height: 1; font-variant-numeric: lining-nums; }
+.when { font-family: var(--f-serif); font-style: italic; font-weight: 300; font-size: clamp(1.25rem, 4.4vw, 1.7rem); }
+.btn {
+  display: inline-block; text-decoration: none; cursor: pointer;
+  font: 400 0.74rem/1 var(--f-sans); letter-spacing: 0.32em; text-transform: uppercase;
+  padding: 18px 30px; border: 1px solid currentColor; transition: background 0.3s, color 0.3s;
+}
+.ink .btn { color: var(--paper); border-color: var(--line-ink); }
+.ink .btn:hover { background: var(--paper); color: var(--ink); }
+.paper .btn { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.paper .btn:hover { background: var(--paper); color: var(--ink); }
+
+/* Countdown */
+.count-band { padding-block: clamp(40px, 7vw, 72px) clamp(80px, 12vw, 128px); }
+.count-band .inner { max-width: 760px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 32px; border-top: 1px solid var(--line-ink); padding-top: clamp(40px, 7vw, 72px); }
+.count-band .label { color: var(--mute-ink); }
+.clock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; }
+.unit { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-block: 8px; }
+.unit + .unit { border-left: 1px solid var(--line-ink); }
+.unit b { font-weight: 200; font-size: clamp(2.2rem, 10.5vw, 5rem); line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+.unit span { color: var(--mute-ink); font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 400; }
+.count-note { color: var(--mute-ink); font-size: 0.82rem; letter-spacing: 0.08em; }
+
+/* Venue */
+.venue-band { padding-block: clamp(72px, 12vw, 128px); }
+.venue-band .inner { max-width: 880px; display: flex; flex-direction: column; align-items: center; gap: clamp(40px, 7vw, 64px); text-align: center; }
+.venue-band .label { color: var(--mute-paper); }
+.places { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+.place { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 8px clamp(12px, 4vw, 40px); min-width: 0; }
+.place + .place { border-left: 1px solid var(--line-paper); }
+.place svg { width: 56px; height: 56px; fill: none; stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+.place .label { color: var(--mute-paper); font-size: 0.68rem; }
+.place h3 { font-family: var(--f-serif); font-weight: 400; font-size: clamp(1.4rem, 4.6vw, 2rem); line-height: 1.2; text-wrap: balance; }
+.place p { font-weight: 300; font-size: 0.95rem; letter-spacing: 0.04em; color: var(--mute-paper); }
+.place .time { font-weight: 400; color: var(--ink); letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.82rem; }
+.where { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.where small { color: var(--mute-paper); font-size: 0.82rem; letter-spacing: 0.06em; }
+
+/* Closing */
+.close-band { padding-block: clamp(80px, 13vw, 140px) calc(clamp(48px, 8vw, 72px) + 8px); }
+.close-band .inner { max-width: 640px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 36px; }
+.quote { font-family: var(--f-serif); font-style: italic; font-weight: 300; font-size: clamp(1.6rem, 6vw, 2.5rem); line-height: 1.35; text-wrap: balance; }
+.close-band .hosts { color: var(--paper); }
+.close-band .hosts span { color: var(--mute-ink); }
+.foot { color: var(--mute-ink); font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 400; }
+
+/* ---------- Motion ---------- */
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pulse { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(1.35, 1.9); opacity: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes write { from { clip-path: inset(-30% 100% -30% -10%); } to { clip-path: inset(-30% -10% -30% -10%); } }
+@keyframes drip { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+.anim-on .anim { opacity: 0; }
+.anim-on .name { clip-path: inset(-30% 100% -30% -10%); }
+.anim-on.opened .anim { animation: rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both; }
+.anim-on.opened .name { animation: write 1.9s cubic-bezier(0.55, 0.1, 0.25, 1) var(--d, 0s) both; }
+
+.sr-on .sr { opacity: 0; transform: translateY(18px); transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sr-on .sr.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .door, .cover-content { transition: none; }
+  .tap::after, .cue i { animation: none; }
+  .ring circle { animation: none; stroke-dashoffset: 0; }
+}
+@media (max-width: 420px) {
+  .places { grid-template-columns: 1fr; gap: 40px; }
+  .place + .place { border-left: 0; border-top: 1px solid var(--line-paper); padding-top: 40px; }
+  .unit span { letter-spacing: 0.18em; }
+}
+</style>
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('gate');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) root.classList.add('anim-on');
+})();
+</script>
+
+<div class="cover" id="cover">
+  <div class="door l"></div>
+  <div class="door r"></div>
+  <div class="cover-content">
+    <div class="label invited">You are invited</div>
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/></svg>
+      <div class="monogram">A&amp;A</div>
+    </div>
+    <div class="cover-names">Arbin &amp; Anndriya</div>
+    <button class="tap" id="openBtn" type="button">Tap to open</button>
+  </div>
+</div>
+
+<main id="main">
+  <section class="band paper hero" id="hero" tabindex="-1" aria-label="Wedding invitation">
+    <div class="inner">
+      <div class="label eyebrow anim" style="--d:0.8s">The wedding of</div>
+      <h1 class="name" style="--d:1.1s">Arbin Joy</h1>
+      <div class="amp anim" style="--d:2.5s">&amp;</div>
+      <h1 class="name" style="--d:2.7s">Anndriya Roselet San</h1>
+      <div class="rule anim" style="--d:4.5s"></div>
+      <p class="hosts anim" style="--d:4.7s">Mr. C.K Joy &amp; Mrs. Limna Joy<span>Cheraparambil House, Pushpagiri, Meloor</span></p>
+      <p class="invite-line anim" style="--d:5.3s">Warmly invite you to celebrate the wedding of our beloved son which will be held</p>
+      <div class="cue label anim" style="--d:6.1s"><span>Scroll for details</span><i></i></div>
+    </div>
+  </section>
+
+  <section class="band ink date-band" aria-label="Date">
+    <div class="inner">
+      <div class="label sr">Save the date</div>
+      <div class="bigdate sr" aria-label="6 January 2027"><span>06</span><span>JAN</span><span>2027</span></div>
+      <p class="when sr">Wednesday, 6th January 2027 at 3:30 PM</p>
+      <a class="btn sr" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20of%20Arbin%20%26%20Anndriya&dates=20270106T100000Z%2F20270106T123000Z&location=Fathima%20Matha%20Church%2C%20Pushpagiri&details=Reception%20at%20Parish%20Hall%2C%206%3A30%20PM">Add to calendar</a>
+    </div>
+  </section>
+
+  <section class="band ink count-band" aria-label="Countdown">
+    <div class="inner">
+      <div class="label sr">The countdown</div>
+      <div class="clock sr" id="clock" role="timer">
+        <div class="unit"><b id="cd-d">00</b><span>Days</span></div>
+        <div class="unit"><b id="cd-h">00</b><span>Hours</span></div>
+        <div class="unit"><b id="cd-m">00</b><span>Minutes</span></div>
+        <div class="unit"><b id="cd-s">00</b><span>Seconds</span></div>
+      </div>
+      <p class="count-note sr" id="cd-note">Until 3:30 PM, 6th January 2027 (IST)</p>
+    </div>
+  </section>
+
+  <section class="band paper venue-band" aria-label="Venue">
+    <div class="inner">
+      <div class="label sr">The celebration</div>
+      <div class="places sr">
+        <div class="place">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 3v11M28 7.5h8"/>
+            <path d="M24 25l8-11 8 11"/>
+            <path d="M24 25v31h16V25"/>
+            <path d="M24 36l-10 6v14h10M40 36l10 6v14H40"/>
+            <path d="M28 56v-8a4 4 0 0 1 8 0v8"/>
+            <path d="M8 56h48"/>
+          </svg>
+          <div class="label">Wedding ceremony</div>
+          <h3>Fathima Matha Church</h3>
+          <p>Pushpagiri</p>
+          <p class="time">3:30 PM</p>
+        </div>
+        <div class="place">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M9 25L32 11l23 14z"/>
+            <path d="M15 30v22M26 30v22M38 30v22M49 30v22"/>
+            <path d="M9 52h46M6 57h52"/>
+          </svg>
+          <div class="label">Reception</div>
+          <h3>Parish Hall</h3>
+          <p>Pushpagiri</p>
+          <p class="time">6:30 PM</p>
+        </div>
+      </div>
+      <div class="where sr">
+        <a class="btn" target="_blank" rel="noopener" href="https://share.google/fvmPA2a5gzeq1FfJG">View location on map</a>
+        <small>Opens in Google Maps</small>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cover = document.getElementById('cover');
+  var main = document.getElementById('main');
+  var hero = document.getElementById('hero');
+  var btn = document.getElementById('openBtn');
+  var started = false;
+
+  try { main.inert = true; } catch (e) {}
+
+  function openInvitation() {
+    if (started) return;
+    started = true;
+    root.classList.add('opening');
+    setTimeout(function () { root.classList.add('opened'); }, reduce ? 0 : 450);
+    setTimeout(function () {
+      root.classList.remove('gate');
+      cover.hidden = true;
+      try { main.inert = false; } catch (e) {}
+      window.scrollTo(0, 0);
+      try { hero.focus({ preventScroll: true }); } catch (e) {}
+    }, reduce ? 50 : 1500);
+  }
+  btn.addEventListener('click', function (ev) { ev.stopPropagation(); openInvitation(); });
+  cover.addEventListener('click', openInvitation);
+
+  /* Scroll reveals */
+  if (!reduce && 'IntersectionObserver' in window) {
+    root.classList.add('sr-on');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    var items = document.querySelectorAll('.sr');
+    for (var i = 0; i < items.length; i++) io.observe(items[i]);
+  }
+
+  /* Countdown to 6 Jan 2027, 3:30 PM IST */
+  var target = new Date('2027-01-06T15:30:00+05:30').getTime();
+  var dEl = document.getElementById('cd-d'), hEl = document.getElementById('cd-h'),
+      mEl = document.getElementById('cd-m'), sEl = document.getElementById('cd-s'),
+      note = document.getElementById('cd-note'), clock = document.getElementById('clock');
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  var timer;
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      clock.hidden = true;
+      note.textContent = 'The day has arrived. Thank you for celebrating with us.';
+      clearInterval(timer);
+      return;
+    }
+    var s = Math.floor(diff / 1000);
+    dEl.textContent = pad(Math.floor(s / 86400));
+    hEl.textContent = pad(Math.floor((s % 86400) / 3600));
+    mEl.textContent = pad(Math.floor((s % 3600) / 60));
+    sEl.textContent = pad(s % 60);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+})();
+</script>
