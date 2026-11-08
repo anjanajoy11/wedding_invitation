@@ -15,10 +15,11 @@
   --font-thin: "Antonio", "Bebas Neue", "Arial Narrow", sans-serif;
   --font-amp: "Ibarra Real Nova", Georgia, serif;
   --W: min(80vw, calc((100vh - 210px) * 0.71), 420px);
+  --Wopen: min(calc(100vw - 12px), calc((100vh - 110px) * 0.7102));
   color-scheme: light;
 }
 @supports (height: 100svh) {
-  :root { --W: min(80vw, calc((100svh - 210px) * 0.71), 420px); }
+  :root { --W: min(80vw, calc((100svh - 210px) * 0.71), 420px); --Wopen: min(calc(100vw - 12px), calc((100svh - 110px) * 0.7102)); }
 }
 * { box-sizing: border-box; }
 html.locked, html.locked body { overflow: hidden; }
@@ -47,8 +48,10 @@ button { font: inherit; color: inherit; }
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   overflow: clip;
   position: relative;
+  transition: padding .9s ease;
   background: radial-gradient(120% 80% at 50% 38%, #f7f7f5 0%, var(--paper) 62%, #e4e4e1 100%);
 }
+.stage.open, .stage.done { padding-block: 12px 4px; gap: 8px; }
 .book {
   position: relative;
   width: var(--W);
@@ -57,9 +60,9 @@ button { font: inherit; color: inherit; }
   flex: none;
   /* closed: shift so the smaller cover, not the letter beneath, sits in the middle */
   transform: translate(6.25%, 1.1%);
-  transition: transform 1s cubic-bezier(.45,.05,.2,1) .05s;
+  transition: transform 1s cubic-bezier(.45,.05,.2,1) .05s, width 1s cubic-bezier(.45,.05,.2,1) .05s;
 }
-.stage.open .book, .stage.done .book { transform: translate(0, 0) scale(1.07); }
+.stage.open .book, .stage.done .book { transform: none; width: var(--Wopen); }
 
 /* ---------- The letter, rebuilt from your PDF so each line can appear in turn ---------- */
 .letter {
